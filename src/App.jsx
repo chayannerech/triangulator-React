@@ -2,11 +2,12 @@ import { useState } from "react"
 import "./styles.css"
 
 export default function App() {
-  const [lado1, setLado1] = useState(0)
-  const [lado2, setLado2] = useState(0)
-  const [lado3, setLado3] = useState(0)
+  const [lado1, setLado1] = useState()
+  const [lado2, setLado2] = useState()
+  const [lado3, setLado3] = useState()
   const [triangleType, setTriangleType] = useState("")
   const [angles, setAngles] = useState("")
+  const [visible, setVisible] = useState(false)
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -46,15 +47,15 @@ export default function App() {
     }
     const firstAngle = Math.floor(
       Math.acos((lado2 ** 2 + lado3 ** 2 - lado1 ** 2) / (2 * lado2 * lado3)) *
-        (180 / Math.PI)
+      (180 / Math.PI)
     )
     const secondAngle = Math.floor(
       Math.acos((lado1 ** 2 + lado3 ** 2 - lado2 ** 2) / (2 * lado1 * lado3)) *
-        (180 / Math.PI)
+      (180 / Math.PI)
     )
     const thirdAngle = Math.floor(
       Math.acos((lado1 ** 2 + lado2 ** 2 - lado3 ** 2) / (2 * lado1 * lado2)) *
-        (180 / Math.PI)
+      (180 / Math.PI)
     )
     return [`Ângulos: ${firstAngle}°`, ` ${secondAngle}°`, ` ${thirdAngle}°`]
   }
@@ -91,12 +92,14 @@ export default function App() {
             id="lado3"
           />
         </div>
-        <button className="btn">Testar</button>
+        <button className="btn" onClick={() => setVisible(true)}>Testar</button>
       </form>
       <br />
-      <h4>Lados: {lado1 + " " + lado2 + " " + lado3}</h4>
-      <h4>{triangleType}</h4>
-      <h4>{angles}</h4>
+      <div style={{ display: visible ? 'block' : 'none' }}>
+        <h4>Lados: {lado1 + " " + lado2 + " " + lado3}</h4>
+        <h4>{triangleType}</h4>
+        <h4>{angles}</h4>
+      </div>
     </>
   )
 }
